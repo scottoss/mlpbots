@@ -1,2 +1,0 @@
-# mlpbots
-all discord bots
