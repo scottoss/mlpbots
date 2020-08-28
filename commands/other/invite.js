@@ -13,7 +13,7 @@ module.exports = class InviteCommand extends Command {
 
   run(message) {
     message.say(
-      'invite me to your own server https://discord.com/api/oauth2/authorize?client_id=735513965676855410&permissions=573963584&redirect_uri=https%3A%2F%2Fdiscord.gg%2FphvcVK2&scope=bot '
+      'invite me or my friends to your own server https://ossscott40.wixsite.com/mlpbots/invite '
     );
   }
 };
