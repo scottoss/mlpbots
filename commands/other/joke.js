@@ -5,11 +5,11 @@ const fs = require('fs');
 module.exports = class MotivationCommand extends Command {
   constructor(client) {
     super(client, {
-      name: 'motivation',
-      aliases: ['motivational, motivation-quote'],
-      group: 'other',
-      memberName: 'motivation',
-      description: 'Get a random motivation quote'
+      name: 'joke',
+      aliases: ['joke, joke-quote'],
+      group: 'funny',
+      memberName: 'joke',
+      description: 'Get a random mlp joke'
     });
   }
   run(message) {
