@@ -36,6 +36,7 @@ client.registry
   .registerDefaultTypes()
   .registerGroups([
     ['music', 'Music Command Group'],
+    ['funny', 'funny commands']
     ['gifs', 'Gif Command Group'],
     ['other', 'random types of commands group'],
     ['guild', 'guild related commands']
