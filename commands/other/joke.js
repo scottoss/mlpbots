@@ -7,7 +7,7 @@ module.exports = class MotivationCommand extends Command {
     super(client, {
       name: 'joke',
       aliases: ['joke, joke-quote'],
-      group: 'funny',
+      group: 'other',
       memberName: 'joke',
       description: 'Get a random mlp joke'
     });
