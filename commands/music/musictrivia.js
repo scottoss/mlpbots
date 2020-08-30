@@ -24,7 +24,7 @@ module.exports = class MusicTriviaCommand extends Command {
           prompt: 'What is the number of songs you want the quiz to have?',
           type: 'integer',
           default: 6,
-          max: 20
+          max: 10
         }
       ]
     });
