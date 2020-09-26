@@ -7,3 +7,20 @@
   "yandexAPI": "yandex-api-key",
   "geniusLyricsAPI": "_4c-cIE6GVzFNbbH3kMuYjfNhjm4KIsneKThwM2P8Xy_fq4VNpDo3mW8D3NuYftu"
 }
+const { Node } = require('lavalink');
+ 
+const voice = new Node({
+  password: 'youshallnotpass', // your Lavalink password
+  userID: '725026923654152203', // the user ID of your bot
+  shardCount: 1, // the total number of shards that your bot is running (optional, useful if you're load balancing)
+  hosts: {
+    rest: '', // the http host of your lavalink instance (optional)
+    ws: '', // the ws host of your lavalink instance (optional)
+  },
+  host: '', // a URL to your lavalink instance without protocol (optional, can be used instead of specifying hosts option)
+  send(guildID, packet) {
+    // send this packet to the gateway
+    // you are responsible for properly serializing and encoding the packet for transmission
+    return gateway.connections.get(Long.fromString(guildID).shiftRight(22).mod(this.shardCount)).send(packet);
+  },
+});
