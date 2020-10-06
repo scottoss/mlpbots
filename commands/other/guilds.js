@@ -7,7 +7,7 @@ module.exports = class guildsCommand extends Command {
       aliases: ['guild-info', 'guilds'],
       memberName: 'guilds',
       group: 'other',
-      description: "shows amount of servers the bot is in"
+      description: "shows amount of servers the bot is in (not working yet)"
     });
   }
 
