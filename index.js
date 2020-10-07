@@ -1,7 +1,11 @@
 const { CommandoClient } = require('discord.js-commando');
 const { Structures } = require('discord.js');
 const path = require('path');
+const client = new Discord.Client();
 const { prefix, discord_owner_id } = require('./config.json');
+const Keyv = require('keyv');
+const prefixes = new Keyv('mongodb+srv://pornuser:pornpass@mlptube.dojq7.gcp.mongodb.net/bots?retryWrites=true&w=majority');
+const globalPrefix = 'rd';
 
 Structures.extend('Guild', function(Guild) {
   class MusicGuild extends Guild {
@@ -25,11 +29,40 @@ Structures.extend('Guild', function(Guild) {
   return MusicGuild;
 });
 
- 
+keyv.on('error', err => console.error('Keyv connection error:', err));
 
 const client = new CommandoClient({
-  commandPrefix: process.env.PREFIX,
+
   owner: discord_owner_id // value comes from config.json
+});
+
+client.on('message', async message => {
+	if (message.author.bot) return;
+
+	let args;
+	// handle messages in a guild
+	if (message.guild) {
+		let prefix;
+
+		if (message.content.startsWith(globalPrefix)) {
+			prefix = globalPrefix;
+		} else {
+			// check the guild-level prefix
+			const guildPrefix = await prefixes.get(message.guild.id);
+			if (message.content.startsWith(guildPrefix)) prefix = guildPrefix;
+		}
+
+		// if we found a prefix, setup args; otherwise, this isn't a command
+		if (!prefix) return;
+		args = message.content.slice(prefix.length).trim().split(/\s+/);
+	} else {
+		// handle DMs
+		const slice = message.content.startsWith(globalPrefix) ? globalPrefix.length : 0;
+		args = message.content.slice(slice).split(/\s+/);
+	}
+
+	// get the first space-delimited argument after the prefix as the command
+	const command = args.shift().toLowerCase();
 });
 
 client.registry
@@ -50,7 +83,7 @@ client.registry
 
 client.once('ready', () => {
   console.log('Ready!');
-  client.user.setActivity(`${process.env.PREFIX} help`, {
+  client.user.setActivity(`${prefixes} help`, {
     type: 'WATCHING',
     url: 'https://github.com/galnir/Master-Bot'
   });
@@ -84,3 +117,14 @@ client.on('guildMemberAdd', member => {
 });
 
 client.login(process.env.TOKEN);
+
+if (command === 'prefix') {
+	// if there's at least one argument, set the prefix
+	if (args.length) {
+		await prefixes.set(message.guild.id, args[0]);
+		return message.channel.send(`Successfully set prefix to \`${args[0]}\``);
+	}
+
+	return message.channel.send(`Prefix is \`${await prefixes.get(message.guild.id) || globalPrefix}\``);
+}
+
