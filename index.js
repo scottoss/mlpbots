@@ -31,10 +31,6 @@ Structures.extend('Guild', function(Guild) {
 
 keyv.on('error', err => console.error('Keyv connection error:', err));
 
-const client = new CommandoClient({
-
-  owner: discord_owner_id // value comes from config.json
-});
 
 client.on('message', async message => {
 	if (message.author.bot) return;
