@@ -39,6 +39,15 @@ client.on('message', async message => {
 	// handle messages in a guild
 	if (message.guild) {
 		let prefix;
+		
+		if (command === 'prefix') {
+	// if there's at least one argument, set the prefix
+	if (args.length) {
+		await prefixes.set(message.guild.id, args[0]);
+		return message.channel.send(`Successfully set prefix to \`${args[0]}\``);
+	}
+
+	return message.channel.send(`Prefix is \`${await prefixes.get(message.guild.id) || globalPrefix}\``);
 
 		if (message.content.startsWith(globalPrefix)) {
 			prefix = globalPrefix;
@@ -56,7 +65,6 @@ client.on('message', async message => {
 		const slice = message.content.startsWith(globalPrefix) ? globalPrefix.length : 0;
 		args = message.content.slice(slice).split(/\s+/);
 	}
-
 	// get the first space-delimited argument after the prefix as the command
 	const command = args.shift().toLowerCase();
 });
@@ -113,14 +121,3 @@ client.on('guildMemberAdd', member => {
 });
 
 client.login(process.env.TOKEN);
-
-if (command === 'prefix') {
-	// if there's at least one argument, set the prefix
-	if (args.length) {
-		await prefixes.set(message.guild.id, args[0]);
-		return message.channel.send(`Successfully set prefix to \`${args[0]}\``);
-	}
-
-	return message.channel.send(`Prefix is \`${await prefixes.get(message.guild.id) || globalPrefix}\``);
-}
-
