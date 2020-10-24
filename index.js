@@ -80,7 +80,7 @@ client.on('voiceStateUpdate', async (___, newState) => {
 client.on('guildMemberAdd', member => {
   const channel = member.guild.channels.cache.find(ch => ch.name === 'general'); // change this to the channel name you want to send the greeting to
   if (!channel) return;
-  channel.send(process.env.WELCOME);
+  channel.send('A 20% cooler ${member} just came in to ${server}!');
 });
 
 client.login(process.env.TOKEN);
