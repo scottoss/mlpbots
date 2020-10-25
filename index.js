@@ -50,7 +50,7 @@ client.registry
 
 client.once('ready', () => {
   console.log('Ready!');
-  client.user.setActivity(`${process.env.PREFIX} help`, {
+  client.user.setActivity(`${process.env.PREFIX} help in: ${Array.from(client.guilds.cache.array()).length} servers!`, {
     type: 'WATCHING',
     url: 'https://github.com/galnir/Master-Bot'
   });
