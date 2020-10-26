@@ -13,7 +13,7 @@ module.exports = class InfoCommand extends Command {
 
   run(message) {
     message.say(
-      'Made by Derpy.EXE#9705 with :heart: '
+      'Made by DerpysTown#9705 with :heart: '
     );
   }
 };
