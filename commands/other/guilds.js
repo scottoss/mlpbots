@@ -13,7 +13,7 @@ module.exports = class guildsCommand extends Command {
 
   run(message) {
     message.say(
-      'Client.guilds.size '
+      `i am currently running in: ${Array.from(client.guilds.cache.array()).length} servers!`
     );
   }
 };
