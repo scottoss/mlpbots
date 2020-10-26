@@ -1,3 +1,4 @@
+const client = new CommandoClient();
 const { Command } = require('discord.js-commando');
 
 module.exports = class guildsCommand extends Command {
